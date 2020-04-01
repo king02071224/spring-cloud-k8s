@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: provider-server
+  namespace: demo-k8s
+  labels:
+    app: provider-server
+spec:
+  ports:
+    - name: http-10006
+      protocol: TCP
+      port: 9002
+      targetPort: 9002
+      nodePort: 30002
+
+  selector:
+    app: provider-server
+    component: provider-server
+    tier: backend
+  type: NodePort
+  sessionAffinity: ClientIP

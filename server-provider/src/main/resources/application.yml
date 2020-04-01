@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: provide-server
+server:
+  port: 9002
+eureka:
+  client:
+    service-url:
+      #eureka-server 地址
+#      defaultZone: http://10.105.105.160:9000/eureka/
+      defaultZone: http://10.105.105.160:9000/eureka/
+  instance:
+    #服务标识
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    #服务续约到期时间 单位秒
+    lease-expiration-duration-in-seconds: 10
+    #服务续约间隔时间 单位秒
+    lease-renewal-interval-in-seconds: 5
+
+management:
+  health:
+    defaults:
+      #开启健康检查
+      enabled: true
+
+
+

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server
+  namespace: demo-k8s
+  labels:
+    app: eureka-server
+    component: eureka-server
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eureka-server
+      component: eureka-server
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: eureka-server
+        component: eureka-server
+        tier: backend
+
+    spec:
+      containers:
+        - name: eureka-server
+          image: king1234/k8s_demo:eureka-v1.0.0
+          ports:
+            - name: http-8081
+              containerPort: 9000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 980m
+              memory: 1000Mi
+            requests:
+              cpu: 10m
+              memory: 10Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+

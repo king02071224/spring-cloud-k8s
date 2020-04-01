@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: eureka-server
+  namespace: demo-k8s
+  labels:
+    app: eureka-server
+spec:
+  ports:
+    - name: http-10006
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+      nodePort: 30000
+
+  selector:
+    app: eureka-server
+    component: eureka-server
+    tier: backend
+  type: NodePort
+  sessionAffinity: ClientIP

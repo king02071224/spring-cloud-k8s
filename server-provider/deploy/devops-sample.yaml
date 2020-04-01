@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider-server
+  namespace: demo-k8s
+  labels:
+    app: provider-server
+    component: provider-server
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: provider-server
+      component: provider-server
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: provider-server
+        component: provider-server
+        tier: backend
+
+    spec:
+      containers:
+        - name: provider-server
+          image: king1234/k8s_demo:provider-v1.0.0
+          ports:
+            - name: http-8081
+              containerPort: 9002
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 980m
+              memory: 1000Mi
+            requests:
+              cpu: 10m
+              memory: 10Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+

@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: consumer-server
+  namespace: demo-k8s
+  labels:
+    app: consumer-server
+spec:
+  ports:
+    - name: http-10006
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
+      nodePort: 30001
+
+  selector:
+    app: consumer-server
+    component: consumer-server
+    tier: backend
+  type: NodePort
+  sessionAffinity: ClientIP
